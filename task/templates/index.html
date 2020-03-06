@@ -1,0 +1,23 @@
+<body>
+<h2>追加</h2>
+<form method="post" action="/new">
+    <p>内容<input type="text" name="text" size="30" placeholder="入力してください" ></p>
+    <p>状態
+        <select name="status">
+            <option value="yet">未着手</option>
+            <option value="now">対応中</option>
+            <option value="end">完了</option>
+        </select>
+    </p>
+    <p><input type="submit" value="Send"></p>
+</form>
+
+<ul>
+    {{ range .dat }}
+        <li>内容：{{ .Text }}、状態：{{ .Status }}
+            <label><a href="/edit/{{.ID}}">編集</a></label>
+            <label><a href="/delete_check/{{.ID}}">削除</a></label>
+        </li>
+    {{end}}
+</ul>
+</body>

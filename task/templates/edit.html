@@ -1,0 +1,29 @@
+<body>
+<h2>編集</h2>
+
+<p>{{.user.ID}}</p>
+<p>{{.user.Name}}</p>
+<p>{{.user.Age}}</p>
+
+<form method="post" action="/update/{{.dat.ID}}">
+    <p>内容<input type="text" name="text" size="30" value="{{.dat.Text}}" ></p>
+    <p>状態
+        <select name="status">
+            {{if eq .dat.Status "yet"}}
+                <option value="yet" selected>未着手</option>
+                <option value="now">対応中</option>
+                <option value="end">完了</option>
+            {{else if eq .dat.Status "now"}}
+                <option value="yet">未着手</option>
+                <option value="now" selected>対応中</option>
+                <option value="end">完了</option>
+            {{else}}
+                <option value="yet">未着手</option>
+                <option value="now">対応中</option>
+                <option value="end" selected>完了</option>
+            {{end}}
+        </select>
+    </p>
+    <p><input type="submit" value="Send"></p>
+</form>
+</body>
