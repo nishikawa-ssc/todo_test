@@ -6,7 +6,8 @@ import (
 	"github.com/nishikawa-ssc/todo_test/task/db"
 )
 
-func run() {
+// Run 実行
+func Run() {
 	// データアクセス初期化
 	db.Init()
 	defer db.Close()
