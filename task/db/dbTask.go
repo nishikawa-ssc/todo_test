@@ -3,7 +3,7 @@ package db
 import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/mattn/go-sqlite3" // sqlite3
-	c "github.com/nishikawa-ssc/todo_test/task/const"
+	c "github.com/nishikawa-ssc/todo_test/task/constant"
 	m "github.com/nishikawa-ssc/todo_test/task/models"
 )
 

@@ -1,3 +1,5 @@
+package task
+
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/nishikawa-ssc/todo_test/task/controller"
