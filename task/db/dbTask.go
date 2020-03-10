@@ -7,25 +7,25 @@ import (
 	m "github.com/nishikawa-ssc/todo_test/task/models"
 )
 
-var db *gorm.DB
+var gd *gorm.DB
 
 // Task データアクセス
 func Task() *gorm.DB {
-	return db
+	return gd
 }
 
 // Init DB初期化
 func Init() {
-	db, _ = gorm.Open("sqlite3", c.DbName)
+	gd, _ = gorm.Open("sqlite3", c.DbName)
 
 	// ログを有効にする
-	db.LogMode(true)
+	gd.LogMode(true)
 
 	// マイグレート
-	db.AutoMigrate(&m.Task{})
+	gd.AutoMigrate(&m.Task{})
 }
 
 // Close DBクローズ
 func Close() {
-	db.Close()
+	gd.Close()
 }

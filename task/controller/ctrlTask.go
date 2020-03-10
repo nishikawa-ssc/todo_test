@@ -44,7 +44,7 @@ func (h *HdlrTask) Create(c *gin.Context) {
 	// DB登録
 	h.Db.Create(&m.Task{Text: t, Stat: s})
 	// 初期表示（一覧表示）をリダイレクト
-	c.Redirect(http.StatusMovedPermanently, "/")
+	c.Redirect(http.StatusMovedPermanently, "/task")
 }
 
 // Edit 編集
@@ -80,7 +80,7 @@ func (h *HdlrTask) Update(c *gin.Context) {
 	// 保存
 	h.Db.Save(&dat)
 
-	c.Redirect(http.StatusMovedPermanently, "/")
+	c.Redirect(http.StatusMovedPermanently, "/task")
 }
 
 // Confirm 削除確認
@@ -106,5 +106,5 @@ func (h *HdlrTask) Delete(c *gin.Context) {
 	dat := Get(id, h.Db)
 	// 削除
 	h.Db.Delete(&dat)
-	c.Redirect(http.StatusMovedPermanently, "/")
+	c.Redirect(http.StatusMovedPermanently, "/task")
 }
