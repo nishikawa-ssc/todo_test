@@ -1,0 +1,19 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+* table {
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+* tr {
+    border: none;
+}
+
+* td {
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid black;
+}

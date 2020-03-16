@@ -28,7 +28,7 @@ func (h *HdlrTask) GetAll(c *gin.Context) {
 	var dat []m.Task
 	h.Db.Order("created_at desc").Find(&dat)
 	// 表示
-	c.HTML(http.StatusOK, "index.html", gin.H{"dat": dat})
+	c.HTML(http.StatusOK, "task.html", gin.H{"dat": dat})
 }
 
 // Create 新規追加

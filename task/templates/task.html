@@ -1,0 +1,77 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="style/task.css">
+</head>
+
+<body>
+<div style="
+    position: absolute;
+    top: 5px;
+    left: 0px;
+    width: 100%;
+    height: 50px;
+    background: #50B050;">
+追加
+</div>
+<div style="position: absolute; top: 50px; left: 25px;">
+<form method="post" action="/task">
+    <table>
+        <tr style="height: 40px;">
+            <td style="width: 50px; border: none;">内容</td>
+            <td style="width: 300px;border: none; text-align: left; ">
+                <input type="text" name="text" size="30" placeholder="入力してください" >
+            </td>
+        </tr>
+        <tr style="height: 40px;">
+            <td style="border: none;">状態</td>
+            <td style="border: none; text-align: left; ">
+                <select name="status">
+                    <option value="1">未着手</option>
+                    <option value="2">対応中</option>
+                    <option value="3">完了</option>
+                </select>
+            </td>
+        </tr>
+        <tr style="height: 40px;">
+            <td colspan="2" style="border: none;">
+                <input type="submit" value="追加" style="width: 100px; height: 25px;">
+            </td>
+        </tr>
+    </table>
+</form>
+</div>
+<br>
+
+<div style="position: absolute; top: 200px; left: 25px;">
+<table>
+    <tr style="height: 30px;">
+        <th style="width: 300px; border: 1px solid black;">内容</th>
+        <th style="width: 80px; border: 1px solid black;">状態</th>
+        <td style="width: 50px; border: none;">　</td>
+        <td style="width: 50px; border: none;">　</td>
+    </tr>
+    {{ range .dat }}
+        <tr style="height: 30px;">
+            <td style="text-align: left;">{{ .Text }}</td>
+            <td>
+                {{if eq .Stat 1}}未着手
+                {{else if eq .Stat 2}}対応中
+                {{else if eq .Stat 3}}完了
+                {{else}}　
+                {{end}}
+            </td>
+            <td style="border-right: none;">
+                <form method="POST" style="margin: 0px; padding: 0px;" action="/task/edit/{{.ID}}">
+                    <input type="submit" value="編集" style="height: 25px; width: 40px;">
+                </form>
+            </td>
+            <td style="border-left: none;">
+                <form method="POST" style="margin: 0px; padding: 0px;" action="/task/delete/{{.ID}}">
+                    <input type="submit" value="削除" style="height: 25px; width: 40px;">
+                </form>
+            </td>
+        </tr>
+    {{end}}
+</table>
+</div>
+</body>

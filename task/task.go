@@ -15,6 +15,7 @@ func Run() {
 	// ルータ設定
 	r := gin.Default()
 	r.LoadHTMLGlob("task/templates/*.html")
+	r.Static("/style", "task/style")
 
 	// ハンドラ設定
 	h := controller.HdlrTask{Db: d.Task()}
