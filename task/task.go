@@ -22,7 +22,7 @@ func Run() {
 	{
 		g.GET("", h.GetAll)
 		g.POST("", h.Create)
-		g.GET("/:id", h.Edit)
+		g.POST("/edit/:id", h.Edit)
 		g.POST("/update/:id", h.Update)
 		g.POST("/delete/:id", h.Delete)
 	}

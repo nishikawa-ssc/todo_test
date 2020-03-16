@@ -1,7 +1,7 @@
 package constant
 
 // DbName DB名
-const DbName = "task"
+const DbName = "task.db"
 
 const (
 	// Text 内容
