@@ -14,18 +14,20 @@ func Run() {
 
 	// ルータ設定
 	r := gin.Default()
-	r.LoadHTMLGlob("task/templates/*.html")
-	r.Static("/style", "task/style")
+	r.Static("/style", "./task/style")
+	r.Static("/js", "./task/js")
+	r.StaticFile("/task", "./task/templates/task.html")
 
 	// ハンドラ設定
 	h := controller.HdlrTask{Db: d.Task()}
-	g := r.Group("/task")
+	g := r.Group("/taskapp")
 	{
-		g.GET("", h.GetAll)
-		g.POST("", h.Create)
-		g.POST("/edit/:id", h.Edit)
+		g.GET("/fetchAll", h.FetchAll)
+		g.GET("/fetchOne", h.FetchOne)
+		g.POST("/add", h.Create)
+		g.POST("/edit", h.Edit)
 		g.POST("/update/:id", h.Update)
-		g.POST("/delete/:id", h.Delete)
+		g.POST("/delete", h.Delete)
 	}
 
 	r.Run()

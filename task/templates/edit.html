@@ -1,10 +1,10 @@
 <body>
 <h2>編集</h2>
 
-<form method="post" action="/task/update/{{.dat.ID}}">
+<form method="post" action="/taskapp/update/{{.dat.ID}}">
     <p>内容<input type="text" name="text" size="30" value="{{.dat.Text}}" ></p>
     <p>状態
-        <select name="status">
+        <select name="stat">
             {{if eq .dat.Stat 1}}
                 <option value="1" selected>未着手</option>
                 <option value="2">対応中</option>

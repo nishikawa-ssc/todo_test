@@ -14,14 +14,6 @@ type HdlrTask struct {
 	Db *gorm.DB
 }
 
-// Get １レコード取得
-func Get(id int, db *gorm.DB) m.Task {
-	var dat m.Task
-	db.First(&dat, id)
-
-	return dat
-}
-
 // GetAll 一覧表示
 func (h *HdlrTask) GetAll(c *gin.Context) {
 	// 全データ取得
@@ -31,49 +23,75 @@ func (h *HdlrTask) GetAll(c *gin.Context) {
 	c.HTML(http.StatusOK, "task.html", gin.H{"dat": dat})
 }
 
+// FetchAll 全データ取得
+func (h *HdlrTask) FetchAll(c *gin.Context) {
+	// 全データ取得
+	var dat []m.Task
+	h.Db.Order("id asc").Find(&dat)
+
+	c.JSON(http.StatusOK, dat)
+}
+
+// get １レコード取得
+func get(id int, db *gorm.DB) m.Task {
+	var dat m.Task
+	db.First(&dat, id)
+
+	return dat
+}
+
+// FetchOne 1レコード取得
+func (h *HdlrTask) FetchOne(c *gin.Context) {
+	n := c.Param("id")
+	id, err := strconv.Atoi(n)
+	if err != nil {
+		panic(err)
+	}
+	dat := get(id, h.Db)
+	c.JSON(http.StatusOK, dat)
+}
+
 // Create 新規追加
 func (h *HdlrTask) Create(c *gin.Context) {
 	// 入力情報収集
 	t := c.PostForm("text")
-	status := c.PostForm("status")
-	s, err := strconv.Atoi(status)
+	stat := c.PostForm("stat")
+	s, err := strconv.Atoi(stat)
 	if err != nil {
 		panic(err)
 	}
 
 	// DB登録
 	h.Db.Create(&m.Task{Text: t, Stat: s})
-	// 初期表示（一覧表示）をリダイレクト
-	c.Redirect(http.StatusMovedPermanently, "/task")
 }
 
 // Edit 編集
 func (h *HdlrTask) Edit(c *gin.Context) {
-	n := c.Param("id")
+	n := c.PostForm("id")
 	id, err := strconv.Atoi(n)
 	if err != nil {
 		panic(err)
 	}
-	dat := Get(id, h.Db)
+	dat := get(id, h.Db)
 	c.HTML(http.StatusOK, "edit.html", gin.H{"dat": dat})
 }
 
 // Update 更新
 func (h *HdlrTask) Update(c *gin.Context) {
-	n := c.Param("id")
+	n := c.PostForm("id")
 	id, err := strconv.Atoi(n)
 	if err != nil {
 		panic(err)
 	}
 	t := c.PostForm("text")
-	status := c.PostForm("status")
+	status := c.PostForm("stat")
 	s, err := strconv.Atoi(status)
 	if err != nil {
 		panic(err)
 	}
 
 	// 対象IDのレコード取得
-	dat := Get(id, h.Db)
+	dat := get(id, h.Db)
 	// 値の更新
 	dat.Text = t
 	dat.Stat = s
@@ -85,26 +103,25 @@ func (h *HdlrTask) Update(c *gin.Context) {
 
 // Confirm 削除確認
 func (h *HdlrTask) Confirm(c *gin.Context) {
-	n := c.Param("id")
+	n := c.PostForm("id")
 	id, err := strconv.Atoi(n)
 	if err != nil {
 		panic(err)
 	}
-	dat := Get(id, h.Db)
+	dat := get(id, h.Db)
 	c.HTML(http.StatusOK, "confirm.html", gin.H{"dat": dat})
 }
 
 // Delete 削除
 func (h *HdlrTask) Delete(c *gin.Context) {
-	n := c.Param("id")
+	n := c.PostForm("id")
 	id, err := strconv.Atoi(n)
 	if err != nil {
 		panic(err)
 	}
 
 	// 対象のレコード取得
-	dat := Get(id, h.Db)
+	dat := get(id, h.Db)
 	// 削除
 	h.Db.Delete(&dat)
-	c.Redirect(http.StatusMovedPermanently, "/task")
 }
