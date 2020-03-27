@@ -3,6 +3,12 @@ package constant
 // DbName DB名
 const DbName = "task.db"
 
+// Port サーバ起動ポート
+const Port = ":8080"
+
+// BaseHTML 基底HTML
+const BaseHTML = "task/page/task.html"
+
 const (
 	// Text 内容
 	Text = "text"

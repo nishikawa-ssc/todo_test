@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="jp">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" type="text/css" href="../style/task.css">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html">
+    <link rel="stylesheet" type="text/css" href="/task/style/task.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js" defer></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
-    <script src="../js/task.js" defer></script>
-    <title>TODO</title>
+    <script src="/task/js/task.js" defer></script>
+    <title>TODOリスト</title>
 </head>
-
 <body>
 <div class="title" style="top: 5px;">TODOリスト</div>
 <div id="taskapp" style="top: 65px;">
@@ -55,8 +55,8 @@
     <div class="list">
         <table>
             <tr style="height: 25px;">
-                <td style="width: 80px;" v-for="label in options">
-                    <label><input type="radio" v-model="current" v-bind:value="label.value">{{ label.label }}</label>
+                <td style="width: 80px;" v-for="lb in options">
+                    <label><input type="radio" v-model="current" v-bind:value="lb.value">{{ lb.label }}</label>
                 </td>
             </tr>
         </table>

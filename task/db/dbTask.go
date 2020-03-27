@@ -9,8 +9,8 @@ import (
 
 var gd *gorm.DB
 
-// Task データアクセス
-func Task() *gorm.DB {
+// Data データアクセス
+func Data() *gorm.DB {
 	return gd
 }
 

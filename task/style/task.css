@@ -83,7 +83,7 @@ td.delete {
     border-left: none;
 }
 tbody.list tr:hover td {
-    background: #ccffff;
+    background: #daf8f8;
 }
 .alert-color {
     border-color: #ff0000;

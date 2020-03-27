@@ -14,15 +14,6 @@ type HdlrTask struct {
 	Db *gorm.DB
 }
 
-// GetAll 一覧表示
-func (h *HdlrTask) GetAll(c *gin.Context) {
-	// 全データ取得
-	var dat []m.Task
-	h.Db.Order("created_at desc").Find(&dat)
-	// 表示
-	c.HTML(http.StatusOK, "task.html", gin.H{"dat": dat})
-}
-
 // FetchAll 全データ取得
 func (h *HdlrTask) FetchAll(c *gin.Context) {
 	// 全データ取得
@@ -65,17 +56,6 @@ func (h *HdlrTask) Create(c *gin.Context) {
 	h.Db.Create(&m.Task{Text: t, Stat: s})
 }
 
-// Edit 編集
-func (h *HdlrTask) Edit(c *gin.Context) {
-	n := c.PostForm("id")
-	id, err := strconv.Atoi(n)
-	if err != nil {
-		panic(err)
-	}
-	dat := get(id, h.Db)
-	c.HTML(http.StatusOK, "edit.html", gin.H{"dat": dat})
-}
-
 // Update 更新
 func (h *HdlrTask) Update(c *gin.Context) {
 	n := c.PostForm("id")
@@ -97,19 +77,6 @@ func (h *HdlrTask) Update(c *gin.Context) {
 	dat.Stat = s
 	// 保存
 	h.Db.Save(&dat)
-
-	c.Redirect(http.StatusMovedPermanently, "/task")
-}
-
-// Confirm 削除確認
-func (h *HdlrTask) Confirm(c *gin.Context) {
-	n := c.PostForm("id")
-	id, err := strconv.Atoi(n)
-	if err != nil {
-		panic(err)
-	}
-	dat := get(id, h.Db)
-	c.HTML(http.StatusOK, "confirm.html", gin.H{"dat": dat})
 }
 
 // Delete 削除

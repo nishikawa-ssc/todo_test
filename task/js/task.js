@@ -46,7 +46,7 @@ new Vue({
     methods: {
         // 全てのタスクを取得する
         fetchAll() {
-            axios.get('/taskapp/fetchAll').then(res => {
+            axios.get('/task/fetchAll').then(res => {
                 if (res.status != 200) {
                     throw new Error('レスポンスエラー')
                 } else {
@@ -58,7 +58,7 @@ new Vue({
         },
         // １つのタスクを取得する
         fetchOne(task) {
-            axios.get('/taskapp/fetchOne', {
+            axios.get('/task/fetchOne', {
                 params: {
                     id: task.id
                 }
@@ -81,7 +81,7 @@ new Vue({
             params.append('text', this.text)
             params.append('stat', this.stat)
 
-            axios.post('/taskapp/add', params).then(res => {
+            axios.post('/task/add', params).then(res => {
                 if (res.status != 200) {
                     throw new Error('レスポンスエラー')
                 } else {
@@ -94,28 +94,42 @@ new Vue({
         },
         // タスクの状態を変更する
         edit(task) {
-            // サーバへ送信するパラメータ
-            const params = new URLSearchParams();
-            params.append('id', task.id)
-            params.append('text', task.text)
-            params.append('stat', task.stat)
-
-            axios.post('/taskapp/edit', params).then(res => {
+            // 対象のレコード取得
+            axios.get('/task/fetchOne', {
+                params: {
+                    id: task.id
+                }
+            }).then(res => {
                 if (res.status != 200) {
                     throw new Error('レスポンスエラー')
                 } else {
-                    // タスクを取得する
-                    this.fetchOne(task)
+                    var dat = res.data
+                    // TODO: 取得したデータで確認画面表示
+                }
+            })
+        },
+        update(task) {
+            // サーバへ送信するパラメータ
+            const params = new URLSearchParams();
+            params.append('id', task.id)
+
+            axios.post('/task/update', params).then(res => {
+                if (res.status != 200) {
+                    throw new Error('レスポンスエラー')
+                } else {
+                    // 全タスクを取得する
+                    this.fetchAll()
                 }
             })
         },
         // タスクを削除する
         del(task) {
+            // TODO: 削除確認画面を表示
             // サーバへ送信するパラメータ
             const params = new URLSearchParams();
             params.append('id', task.id)
 
-            axios.post('/taskapp/delete', params).then(res => {
+            axios.post('/task/delete', params).then(res => {
                 if (res.status != 200) {
                     throw new Error('レスポンスエラー')
                 } else {
